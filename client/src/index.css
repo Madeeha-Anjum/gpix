@@ -16,6 +16,6 @@
   #root {
     /* root box */
     @apply max-w-7xl mx-auto border shadow-inner;
-    @apply min-h-screen mx-auto p-4 text-center;
+    @apply min-h-screen mx-auto p-4;
   }
 }
