@@ -10,12 +10,23 @@ const bucketName = "s3_bkt";
 
 gStorageRouter.get("/", async (req, res) => {
   // Get info on all files in bucket
-  const [fileData] = await storage.bucket(bucketName).getFiles();
+  let [filesArray] = await storage.bucket(bucketName).getFiles();
 
-  console.log(`fileData: ${JSON.stringify(fileData, null, 2)}`);
+  res.send(
+    (filesArray = filesArray.map((file) => {
+      return file.metadata;
+    }))
+  );
+});
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.send(JSON.stringify(fileData, null, 2));
+gStorageRouter.get("/:filename", async (req, res) => {
+  // Get info on a specific file in bucket
+  const [file] = await storage
+    .bucket(bucketName)
+    .file(req.params.filename)
+    .get();
+
+  res.send(file.metadata.mediaLink);
 });
 
 export { gStorageRouter as Router };

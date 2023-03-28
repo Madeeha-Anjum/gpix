@@ -14,6 +14,18 @@ const App = () => {
       })
       .catch((err) => {})
   }
+  const getImage = async () => {
+    const img = 'octocat-icecream.png'
+    axios
+      .get(`/api/v1/${img}`)
+      .then((res) => {
+        setText(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <>
       <div className='flex mb-10'>
@@ -28,6 +40,16 @@ const App = () => {
           Server Test
         </button>
         <p>{text}</p>
+      </div>
+      <div>
+        <button
+          className='p-2 border rounded-lg border-black bg-green-400 bg-opacity-40
+        hover:bg-green-900 hover:bg-opacity-40'
+          onClick={getImage}
+        >
+          Fetch Image
+        </button>
+        <img src={text} alt='NO IMAGE' />
       </div>
     </>
   )
