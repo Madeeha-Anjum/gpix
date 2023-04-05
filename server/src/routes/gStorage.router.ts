@@ -11,7 +11,6 @@ const bucketName = "s3_bkt";
 gStorageRouter.get("/", async (req, res) => {
   // Get info on all files in bucket
   let [filesArray] = await storage.bucket(bucketName).getFiles();
-
   res.send(
     (filesArray = filesArray.map((file) => {
       return file.metadata;
@@ -25,8 +24,15 @@ gStorageRouter.get("/:filename", async (req, res) => {
     .bucket(bucketName)
     .file(req.params.filename)
     .get();
-
-  res.send(file.metadata.mediaLink);
+  console.log(file.metadata);
+  res.send({
+    id: file.metadata.id,
+    metadata: file.metadata.metadata,
+    link: {
+      mediaLink: file.metadata.mediaLink,
+      selfLink: file.metadata.selfLink,
+    },
+  });
 });
 
 export { gStorageRouter as Router };
