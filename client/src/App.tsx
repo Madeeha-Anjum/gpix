@@ -2,7 +2,6 @@ import logo from './assets/logo.svg'
 import axios from './utils/axios'
 import { useState } from 'react'
 import Button from './components/Button'
-import Image from './components/Image'
 
 const sendGetBucketInfoRequest = async () => {
   return axios
